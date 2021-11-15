@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Player");
         inputMovement = Vector2.ClampMagnitude(controlValues.movement, 1f) * speed;
     }
 

@@ -9,7 +9,6 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Input");
         controlValues.movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 		if (Input.GetButtonDown("Jump"))
 		{
