@@ -13,10 +13,17 @@ public class InputManager : MonoBehaviour
 		if (Input.GetButtonDown("Jump"))
 		{
             controlValues.roll = true;
+            controlValues.rollButtonDown = true;
 		}
+        else if (Input.GetButton("Jump"))
+        {
+            controlValues.roll = true;
+            controlValues.rollButtonDown = false;
+        }
         else if (Input.GetButtonUp("Jump"))
         {
             controlValues.roll = false;
+            controlValues.rollButtonDown = false;
         }
     }
 }

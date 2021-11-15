@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 enum PlayerState
 {
@@ -13,7 +14,17 @@ enum PlayerState
 
 public class StateMachine : MonoBehaviour
 {
-    PlayerState currentState;
+	[SerializeField]
+	PlayerController player;
+	[SerializeField]
+	ControlValues controlValues;
+	[SerializeField]
+	float rollTime;
+	[SerializeField]
+	TMP_Text text;
+
+	float rollRemainingTime;
+	PlayerState currentState;
 
 	void Start()
 	{
@@ -23,6 +34,8 @@ public class StateMachine : MonoBehaviour
 	void Update()
 	{
 		OnStateUpdate(currentState);
+		Debug.Log(currentState);
+		text.text = currentState.ToString();
 	}
 
 	void OnStateEnter(PlayerState state)
@@ -101,66 +114,103 @@ public class StateMachine : MonoBehaviour
 	#region ON STATE ENTER
 	private void OnEnterIdle()
 	{
-		throw new NotImplementedException();
 	}
 
 	private void OnEnterRun()
 	{
-		throw new NotImplementedException();
 	}
 
 	private void OnEnterSprint()
 	{
-		throw new NotImplementedException();
+		player.Sprint();
 	}
 
 	private void OnEnterRoll()
 	{
-		throw new NotImplementedException();
+		player.Roll();
+		rollRemainingTime = rollTime;
 	}
 	#endregion
 
 	#region ON STATE UPDATE
 	private void OnUpdateIdle()
 	{
-		throw new NotImplementedException();
+		if (controlValues.rollButtonDown)
+		{
+			TransitionToState(PlayerState.ROLL);
+		}
+		else if (controlValues.movement != Vector2.zero)
+		{
+			if (controlValues.roll)
+			{
+				TransitionToState(PlayerState.SPRINT);
+			}
+			else TransitionToState(PlayerState.RUN);
+		}
 	}
 
 	private void OnUpdateRun()
 	{
-		throw new NotImplementedException();
+		if (controlValues.rollButtonDown)
+		{
+			TransitionToState(PlayerState.ROLL);
+		}
+		else if (controlValues.movement.magnitude == 0f)
+		{
+			TransitionToState(PlayerState.IDLE);
+		}
 	}
 
 	private void OnUpdateSprint()
 	{
-		throw new NotImplementedException();
+		if (controlValues.movement.magnitude == 0f)
+		{
+			TransitionToState(PlayerState.IDLE);
+		}
+		else if (!controlValues.roll)
+		{
+			TransitionToState(PlayerState.RUN);
+		}
 	}
 
 	private void OnUpdateRoll()
 	{
-		throw new NotImplementedException();
+		rollRemainingTime -= Time.deltaTime;
+		if (rollRemainingTime <= 0f)
+		{
+			if (controlValues.movement.magnitude == 0f)
+			{
+				TransitionToState(PlayerState.IDLE);
+			}
+			else
+			{
+				if (controlValues.roll)
+				{
+					TransitionToState(PlayerState.SPRINT);
+				}
+				else TransitionToState(PlayerState.RUN);
+			}
+		}
 	}
 	#endregion
 
 	#region ON STATE EXIT
 	private void OnExitIdle()
 	{
-		throw new NotImplementedException();
 	}
 
 	private void OnExitRun()
 	{
-		throw new NotImplementedException();
 	}
 
 	private void OnExitSprint()
 	{
-		throw new NotImplementedException();
+		player.EndSprint();
 	}
 
 	private void OnExitRoll()
 	{
-		throw new NotImplementedException();
+		player.EndRoll();
 	}
 	#endregion
 }

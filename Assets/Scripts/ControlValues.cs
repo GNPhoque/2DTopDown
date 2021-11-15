@@ -6,5 +6,7 @@ using UnityEngine;
 public class ControlValues : ScriptableObject
 {
 	public Vector2 movement;
+
 	public bool roll;
+	public bool rollButtonDown;
 }
