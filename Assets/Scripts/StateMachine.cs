@@ -22,6 +22,7 @@ public class StateMachine : MonoBehaviour
 
 	void Update()
 	{
+        Debug.Log("StateMachine");
 		OnStateUpdate(currentState);
 	}
 

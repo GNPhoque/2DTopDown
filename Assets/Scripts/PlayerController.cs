@@ -9,24 +9,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
+    ControlValues controlValues;
 
+    bool isRolling;
+    bool isSprinting;
     Vector2 inputMovement;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        inputMovement = Vector2.ClampMagnitude(inputMovement, 1f) * speed;
+        Debug.Log("Player");
+        inputMovement = Vector2.ClampMagnitude(controlValues.movement, 1f) * speed;
     }
 
 	void FixedUpdate()
 	{
         rb.velocity = inputMovement;
+	}
+
+    void Roll()
+	{
+
+	}
+
+    void Sprint()
+	{
+
 	}
 }

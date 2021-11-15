@@ -5,31 +5,19 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
-    PlayerController player;
-    [SerializeField]
-    StateMachine stateMachine;
-
-    Vector2 leftStick;
-    bool pressRoll;
-    bool holdRoll;
+    ControlValues controlValues;
 
     void Update()
     {
-        leftStick = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Debug.Log("Input");
+        controlValues.movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 		if (Input.GetButtonDown("Jump"))
 		{
-            pressRoll = true;
-            holdRoll = true;
+            controlValues.roll = true;
 		}
         else if (Input.GetButtonUp("Jump"))
         {
-            pressRoll = false;
-            holdRoll = false;
+            controlValues.roll = false;
         }
     }
-
-    void SendInputs()
-	{
-
-	}
 }
