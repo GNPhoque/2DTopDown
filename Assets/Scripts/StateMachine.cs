@@ -19,6 +19,8 @@ public class StateMachine : MonoBehaviour
 	[SerializeField]
 	ControlValues controlValues;
 	[SerializeField]
+	Animator animator;
+	[SerializeField]
 	float rollTime;
 	[SerializeField]
 	TMP_Text text;
@@ -33,6 +35,8 @@ public class StateMachine : MonoBehaviour
 
 	void Update()
 	{
+		animator.SetFloat("X", controlValues.movement.x);
+		animator.SetFloat("Y", controlValues.movement.y);
 		OnStateUpdate(currentState);
 		Debug.Log(currentState);
 		text.text = currentState.ToString();
@@ -114,19 +118,23 @@ public class StateMachine : MonoBehaviour
 	#region ON STATE ENTER
 	private void OnEnterIdle()
 	{
+		animator.SetBool("Idle", true);
 	}
 
 	private void OnEnterRun()
 	{
+		animator.SetBool("Run", true);
 	}
 
 	private void OnEnterSprint()
 	{
+		animator.SetBool("Sprint", true);
 		player.Sprint();
 	}
 
 	private void OnEnterRoll()
 	{
+		animator.SetBool("Roll", true);
 		player.Roll();
 		rollRemainingTime = rollTime;
 	}
@@ -197,19 +205,23 @@ public class StateMachine : MonoBehaviour
 	#region ON STATE EXIT
 	private void OnExitIdle()
 	{
+		animator.SetBool("Idle", false);
 	}
 
 	private void OnExitRun()
 	{
+		animator.SetBool("Run", false);
 	}
 
 	private void OnExitSprint()
 	{
+		animator.SetBool("Sprint", false);
 		player.EndSprint();
 	}
 
 	private void OnExitRoll()
 	{
+		animator.SetBool("Roll", false);
 		player.EndRoll();
 	}
 	#endregion
