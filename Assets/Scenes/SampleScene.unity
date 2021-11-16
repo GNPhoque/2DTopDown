@@ -257,7 +257,7 @@ MonoBehaviour:
   controlValues: {fileID: 11400000, guid: 3352c1980ca36404898bfde51306bcd2, type: 2}
   speed: 3
   sprintSpeedMultiplier: 2
-  rollingForce: 8
+  rollingForce: 6
 --- !u!114 &131362004
 MonoBehaviour:
   m_ObjectHideFlags: 0

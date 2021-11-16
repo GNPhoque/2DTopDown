@@ -19,22 +19,12 @@ public class PlayerController : MonoBehaviour
     bool isSprinting;
     bool isFirstRollingFrame;
     Vector2 inputMovement;
-	Vector2 direction;
-
-	void Start()
-	{
-		direction = Vector2.up;
-	}
 
 	void Update()
     {
 		if (CanMove())
 		{
             inputMovement = Vector2.ClampMagnitude(controlValues.movement, 1f) * speed * (isSprinting ? sprintSpeedMultiplier : 1);
-			if (inputMovement != Vector2.zero)
-			{
-				direction = inputMovement.normalized;
-			}
 		}
     }
 
@@ -48,7 +38,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (isFirstRollingFrame)
 			{
-				rb.AddForce(direction * rollingForce, ForceMode2D.Impulse);
+				rb.AddForce(controlValues.direction * rollingForce, ForceMode2D.Impulse);
 				isFirstRollingFrame = false;
 			}
 		}

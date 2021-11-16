@@ -35,8 +35,6 @@ public class StateMachine : MonoBehaviour
 
 	void Update()
 	{
-		animator.SetFloat("X", controlValues.movement.x);
-		animator.SetFloat("Y", controlValues.movement.y);
 		OnStateUpdate(currentState);
 		Debug.Log(currentState);
 		text.text = currentState.ToString();
@@ -159,6 +157,8 @@ public class StateMachine : MonoBehaviour
 
 	private void OnUpdateRun()
 	{
+		animator.SetFloat("X", controlValues.direction.x);
+		animator.SetFloat("Y", controlValues.direction.y);
 		if (controlValues.rollButtonDown)
 		{
 			TransitionToState(PlayerState.ROLL);
@@ -171,6 +171,8 @@ public class StateMachine : MonoBehaviour
 
 	private void OnUpdateSprint()
 	{
+		animator.SetFloat("X", controlValues.direction.x);
+		animator.SetFloat("Y", controlValues.direction.y);
 		if (controlValues.movement.magnitude == 0f)
 		{
 			TransitionToState(PlayerState.IDLE);

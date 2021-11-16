@@ -10,7 +10,11 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         controlValues.movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		if (Input.GetButtonDown("Jump"))
+        if (controlValues.movement != Vector2.zero)
+        {
+            controlValues.direction = controlValues.movement.normalized;
+        }
+        if (Input.GetButtonDown("Jump"))
 		{
             controlValues.roll = true;
             controlValues.rollButtonDown = true;
