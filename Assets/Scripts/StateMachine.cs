@@ -6,10 +6,10 @@ using TMPro;
 
 enum PlayerState
 {
-    IDLE,
-    RUN,
-    SPRINT,
-    ROLL,
+	IDLE,
+	RUN,
+	SPRINT,
+	ROLL,
 }
 
 public class StateMachine : MonoBehaviour
